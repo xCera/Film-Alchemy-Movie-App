@@ -8,7 +8,7 @@
         <h4 class="movie-card__info">(<%=film.release_date.substring(0,4)%>) <% genres.forEach(genre => { %> <%=genre.name%> / <%}) %></h4>
       </div>
       <p class="movie-card__desc"><%=film.overview%></p>
-      <button class="btn btn-outline movie-card__button" type="button">Read More</button>
+      <button class="btn btn-outline movie-card__button" type="button"><a href="/title/<%=film.id%>" style="color: white; text-decoration: none;">Read More</a></button>
     </div>
   </div>
 

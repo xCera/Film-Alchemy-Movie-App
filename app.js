@@ -67,6 +67,20 @@ app.post('/search', (req, res) => {
 		});
 });
 
+// SHOW FILM
+
+app.get('/title/:id', (req, res) => {
+	let movie_id = req.params.id;
+	axios
+		.get(`https://api.themoviedb.org/3/movie/${movie_id}?api_key=${process.env.apikey}&language=en-US`)
+		.then((response) => {
+			let film = response.data;
+			console.log(film);
+			res.render('show', { film: film });
+		})
+		.catch((err) => console.log(err));
+});
+
 function randomNum(length) {
 	let random_num = Math.round(length * Math.random());
 	return random_num;

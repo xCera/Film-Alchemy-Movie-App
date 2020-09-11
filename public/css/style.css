@@ -92,7 +92,7 @@ body {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  padding: 15px 5px 0px 12px;
+  padding: 15px 5px 8px 10px;
   font-size: 14px;
 }
 
@@ -316,5 +316,186 @@ nav .nav-links li a {
   color: #ba2047;
   -webkit-box-shadow: 0px 1px 8px 0px rgba(245, 199, 0, 0.2);
           box-shadow: 0px 1px 8px 0px rgba(245, 199, 0, 0.2);
+}
+
+/*-- Variables --*/
+.title-card {
+  margin-top: 50px;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 2fr 400px .5fr 400px 2fr;
+      grid-template-columns: 2fr 400px .5fr 400px 2fr;
+      grid-template-areas: '. p . m .';
+  color: white;
+}
+
+@media screen and (max-width: 1024px) {
+  .title-card {
+    -ms-grid-columns: 1fr 4fr 1fr 4fr 1fr;
+        grid-template-columns: 1fr 4fr 1fr 4fr 1fr;
+  }
+}
+
+@media screen and (max-width: 780px) {
+  .title-card {
+    -ms-grid-columns: 1fr 4fr 1fr;
+        grid-template-columns: 1fr 4fr 1fr;
+        grid-template-areas: '. p .' '. m .';
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .title-card {
+    -ms-grid-columns: .5fr 4fr .5fr;
+        grid-template-columns: .5fr 4fr .5fr;
+        grid-template-areas: '. p .' '. m .';
+  }
+}
+
+.title-card .poster-wrapper {
+  -ms-grid-row: 1;
+  -ms-grid-column: 2;
+  grid-area: p;
+}
+
+.title-card .poster-wrapper .poster {
+  position: relative;
+  color: #fff;
+}
+
+@media screen and (max-width: 500px) {
+  .title-card .poster-wrapper .poster {
+    margin-bottom: 30px;
+  }
+}
+
+.title-card .poster-wrapper .poster img {
+  width: 100%;
+  height: 100%;
+}
+
+.title-card .poster-wrapper .poster .release-date {
+  position: absolute;
+  top: 30px;
+  left: -30px;
+  background-color: #ba2047;
+  padding: 10px;
+  text-align: center;
+}
+
+.title-card .poster-wrapper .poster .release-date h2 {
+  font-size: 42px;
+  color: #fff;
+}
+
+.title-card .poster-wrapper .poster .release-date .divider {
+  background-color: #fff;
+  height: 2px;
+  width: 20px;
+  margin: 10px auto;
+}
+
+.title-card .poster-wrapper .poster .btn-play {
+  position: absolute;
+  bottom: 30px;
+  right: -30px;
+  background-color: #ba2047;
+  padding: 15px;
+  font-size: 24px;
+  cursor: pointer;
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+.title-card .poster-wrapper .poster .btn-play:hover {
+  background-color: #fdba2e;
+}
+
+.title-card .title-info {
+  -ms-grid-row: 1;
+  -ms-grid-column: 4;
+  grid-area: m;
+}
+
+.title-card .title-info > div {
+  margin-bottom: 30px;
+}
+
+.title-card .title-info .header-section p {
+  margin: 5px 0;
+}
+
+.title-card .title-info .header-section .extra {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+@media screen and (max-width: 500px) {
+  .title-card .title-info .header-section .extra {
+    display: block;
+  }
+}
+
+.title-card .title-info .header-section .extra .ratings {
+  margin-right: 50px;
+  color: #fdba2e;
+}
+
+.title-card .title-info .header-section .extra .ratings p {
+  font-size: 18px;
+}
+
+.title-card .title-info .header-section .extra .channels > span {
+  margin-right: 5px;
+}
+
+.title-card .title-info .synopsis-section p {
+  margin-top: 10px;
+}
+
+.title-card .title-info .cast-section .casts {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.title-card .title-info .cast-section .casts img {
+  margin-top: 10px;
+  width: 40px;
+  height: 40px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.title-card .title-info .gallery-section .gallery {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (minmax(50px, 1fr))[autofit];
+      grid-template-columns: repeat(autofit, minmax(50px, 1fr));
+  grid-auto-rows: 75px;
+  grid-row-gap: 10px;
+  grid-column-gap: 10px;
+  grid-auto-flow: dense;
+}
+
+.title-card .title-info .gallery-section .gallery .small {
+  grid-column: span 1;
+}
+
+.title-card .title-info .gallery-section .gallery .medium {
+  grid-column: span 3;
+}
+
+.title-card .title-info .gallery-section .gallery img {
+  -o-object-fit: cover;
+     object-fit: cover;
+  width: 100%;
+  height: 100%;
 }
 /*# sourceMappingURL=style.css.map */

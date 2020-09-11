@@ -73,7 +73,7 @@ body {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	padding: 15px 5px 0px 12px;
+	padding: 15px 5px 8px 10px;
 	font-size: 14px;
 	i {
 		font-size: 18px;
@@ -151,7 +151,6 @@ nav {
 // ===================================================== HOME PAGE ========================================
 @import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,700,800');
 
-$primary-color: #cfd6e1;
 $bg-color: #dce1e5;
 $title-color: #9ac7fa;
 
@@ -269,4 +268,147 @@ $title-color: #9ac7fa;
 	border-color: $primary;
 	color: $primary;
 	box-shadow: 0px 1px 8px 0px rgba(245, 199, 0, .2);
+}
+
+// SHOW TITLE
+
+/*-- Variables --*/
+$grey-color: grey;
+$sec-color: #020518;
+$gold-color: #fdba2e;
+
+$large-screen: 1024px;
+$medium-screen: 780px;
+$small-screen: 500px;
+.title-card {
+	margin-top: 50px;
+	display: grid;
+	grid-template-columns: 2fr 400px .5fr 400px 2fr;
+	grid-template-areas: '. p . m .';
+	color: white;
+	@media screen and (max-width: $large-screen) {
+		grid-template-columns: 1fr 4fr 1fr 4fr 1fr;
+	}
+	@media screen and (max-width: $medium-screen) {
+		grid-template-columns: 1fr 4fr 1fr;
+		grid-template-areas: '. p .' '. m .';
+	}
+	@media screen and (max-width: $small-screen) {
+		grid-template-columns: .5fr 4fr .5fr;
+		grid-template-areas: '. p .' '. m .';
+	}
+	.poster-wrapper {
+		grid-area: p;
+		.poster {
+			position: relative;
+			color: #fff;
+			@media screen and (max-width: $small-screen) {
+				margin-bottom: 30px;
+			}
+
+			img {
+				width: 100%;
+				height: 100%;
+			}
+			.release-date {
+				position: absolute;
+				top: 30px;
+				left: -30px;
+				background-color: $primary;
+				padding: 10px;
+				text-align: center;
+				h2 {
+					font-size: 42px;
+					color: #fff;
+				}
+				.divider {
+					background-color: #fff;
+					height: 2px;
+					width: 20px;
+					margin: 10px auto;
+				}
+			}
+			.btn-play {
+				position: absolute;
+				bottom: 30px;
+				right: -30px;
+				background-color: $primary;
+				padding: 15px;
+				font-size: 24px;
+				cursor: pointer;
+				transition: all 0.4s;
+				&:hover {
+					background-color: $gold-color;
+				}
+			}
+		}
+	}
+	.title-info {
+		grid-area: m;
+		& > div {
+			margin-bottom: 30px;
+		}
+		.header-section {
+			p {
+				margin: 5px 0;
+			}
+			.extra {
+				display: flex;
+				align-items: center;
+				@media screen and (max-width: $small-screen) {
+					display: block;
+				}
+				.ratings {
+					margin-right: 50px;
+					color: $gold-color;
+					p {
+						font-size: 18px;
+					}
+				}
+				.channels > span {
+					margin-right: 5px;
+				}
+			}
+		}
+		.synopsis-section {
+			p {
+				margin-top: 10px;
+			}
+		}
+		.cast-section {
+			.casts {
+				display: flex;
+				img {
+					margin-top: 10px;
+					width: 40px;
+					height: 40px;
+					object-fit: cover;
+					border-radius: 50%;
+					margin-right: 15px;
+				}
+			}
+		}
+		.gallery-section {
+			.gallery {
+				display: grid;
+				grid-template-columns: repeat(autofit, minmax(50px, 1fr));
+				grid-auto-rows: 75px;
+				grid-row-gap: 10px;
+				grid-column-gap: 10px;
+				grid-auto-flow: dense;
+
+				.small {
+					grid-column: span 1;
+				}
+				.medium {
+					grid-column: span 3;
+				}
+				img {
+					object-fit: cover;
+					width: 100%;
+					height: 100%;
+				}
+			}
+		}
+	}
 }
