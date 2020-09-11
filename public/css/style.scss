@@ -1,0 +1,272 @@
+$primary: rgb(186, 32, 71);
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	background-color: rgb(5, 5, 5);
+	font-family: Roboto, sans-serif;
+}
+
+.films {
+	width: 85%;
+	margin: 100px auto;
+	display: grid;
+	justify-items: center;
+	row-gap: 100px;
+	grid-template-columns: repeat(5, 1fr);
+}
+// FILM CARD
+.film_card {
+	width: 200px;
+	height: 300px;
+	background: #121212;
+	border-radius: 2px;
+	color: #ffffff;
+	position: relative;
+}
+
+.movie_poster {
+	width: 100%;
+	height: 75%;
+	position: relative;
+
+	img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: top;
+	}
+}
+
+.movie_label {
+	position: absolute;
+	bottom: -23.5px;
+	background: $primary;
+	background: linear-gradient(0deg, rgba(186, 32, 71, 1) 0%, rgba(231, 29, 80, 1) 100%);
+	color: white;
+	width: auto;
+	height: 40px;
+	z-index: 2;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: 0 10px;
+	text-align: center;
+	h2 {
+		margin: 0;
+		font-size: 12px;
+	}
+}
+
+.movie_content {
+	width: 100%;
+	height: calc(100% - 75%);
+}
+
+.mov_specs {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 15px 5px 0px 12px;
+	font-size: 14px;
+	i {
+		font-size: 18px;
+		margin-right: 8px;
+		color: #ffd014;
+	}
+}
+
+// SEARCH BAR
+.search-form {
+	display: flex;
+	justify-content: center;
+	form {
+		border: 1px solid #eee;
+		background: #f9f9ff;
+		border-radius: 50px;
+
+		input {
+			padding: 13px 20px;
+			font-size: 14px;
+			border: none;
+			float: left;
+			width: 80%;
+			background: transparent;
+		}
+
+		button {
+			float: left;
+			width: 20%;
+			padding: 5px 4px 3px 15px;
+			background: transparent;
+			color: white;
+			font-size: 17px;
+			border: none;
+			cursor: pointer;
+
+			i {
+				padding: 12px;
+				background: $primary;
+				border-radius: 29px;
+				color: #fff;
+				font-size: 14px;
+			}
+		}
+	}
+}
+
+nav {
+	width: 60%;
+	margin: auto;
+	height: 90px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	h1 {
+		color: white;
+		text-transform: uppercase;
+	}
+
+	.nav-links {
+		display: flex;
+		width: 30%;
+		justify-content: space-between;
+		li {
+			list-style: none;
+
+			a {
+				color: white;
+				text-decoration: none;
+			}
+		}
+	}
+}
+
+// ===================================================== HOME PAGE ========================================
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,700,800');
+
+$primary-color: #cfd6e1;
+$bg-color: #dce1e5;
+$title-color: #9ac7fa;
+
+// Random Popular Film
+.movie-card {
+	font-family: Montserrat, sans-serif;
+	background-size: contain;
+	background-repeat: no-repeat;
+	width: 60%;
+	height: 100%;
+	min-height: 500px;
+	display: block;
+	margin: 50px auto;
+	border-radius: 8px;
+	position: relative;
+	@media screen and (max-width: 800px) {
+		width: 95%;
+		max-width: 95%;
+	}
+	@media screen and (max-width: 600px) {
+		background-position: 50% 0%;
+		background-size: cover;
+		height: 400px;
+	}
+	&__overlay {
+		width: 100%;
+		height: 100%;
+		border-radius: 8px;
+		background: linear-gradient(to right, rgba(167, 14, 14, 0.1) 0%, rgba(20, 20, 20, 1) 55%, rgb(20, 20, 20) 100%);
+		background-blend-mode: multiply;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		left: 0;
+		@media screen and (max-width: 600px) {
+			background: linear-gradient(
+				to bottom,
+				rgba(42, 159, 255, .2) 0%,
+				rgba(33, 33, 32, 1) 60%,
+				rgba(33, 33, 32, 1) 100%
+			);
+		}
+	}
+
+	&__content {
+		height: 500px;
+		justify-content: center;
+		width: 100%;
+		max-width: 450px;
+		display: flex;
+		align-items: flex-start;
+		flex-direction: column;
+		position: relative;
+		float: right;
+		padding-right: 1.2em;
+		padding-bottom: 1em;
+		@media screen and (max-width: 1000px) {
+			width: 50%;
+		}
+		@media screen and (max-width: 600px) {
+			margin-top: 4.2em;
+			width: 100%;
+			float: inherit;
+			max-width: 100%;
+			padding: 0 1em 1em;
+		}
+	}
+	&__header {
+		margin-bottom: 2em;
+	}
+	&__title {
+		color: #ffffff;
+		margin-bottom: .25em;
+		opacity: .75;
+	}
+	&__info {
+		text-transform: uppercase;
+		letter-spacing: 2px;
+		font-size: .8em;
+		color: $primary;
+		line-height: 2;
+		margin: 0;
+		font-weight: 700;
+		opacity: 1;
+	}
+	&__desc {
+		color: white;
+		font-weight: 300;
+		opacity: .90;
+		margin-bottom: 2em;
+	}
+}
+
+.btn {
+	padding: .5rem 1.5rem;
+	background-color: rgba(255, 255, 255, .4);
+	color: rgba(255, 255, 255, 1);
+}
+
+.btn-outline {
+	background-color: transparent;
+	border: 3px solid #ffffff;
+}
+
+// .btn::after {
+// 	font-family: 'Material Icons';
+// 	content: '\e037';
+// 	vertical-align: middle;
+// 	font-size: 1.5em;
+// 	padding-left: .5em;
+// }
+
+.btn-outline:hover {
+	border-color: $primary;
+	color: $primary;
+	box-shadow: 0px 1px 8px 0px rgba(245, 199, 0, .2);
+}

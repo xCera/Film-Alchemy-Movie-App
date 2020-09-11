@@ -1,0 +1,17 @@
+<%- include("partials/header") %>
+        
+<div class="movie-card" style="background-image: url('https://image.tmdb.org/t/p/w500/<%=film.backdrop_path%>');" data-movie="Blade Runner">
+    <div class="movie-card__overlay"></div>
+    <div class="movie-card__content">
+      <div class="movie-card__header">
+        <h1 class="movie-card__title"><%=film.title%></h1>
+        <h4 class="movie-card__info">(<%=film.release_date.substring(0,4)%>) <% genres.forEach(genre => { %> <%=genre.name%> / <%}) %></h4>
+      </div>
+      <p class="movie-card__desc"><%=film.overview%></p>
+      <button class="btn btn-outline movie-card__button" type="button">Read More</button>
+    </div>
+  </div>
+
+
+
+<%- include("partials/footer") %>
