@@ -1,5 +1,5 @@
 <%- include("partials/header") %>
-              <div class="title-card">
+      <div class="title-card">
         <div class="poster-wrapper">
           <div class="poster">
             <img src="https://image.tmdb.org/t/p/w500/<%=film.poster_path%>" alt="poster" />
@@ -8,7 +8,10 @@
               <div class="divider"></div>
               <p><%=film.release_date.substring(0,7)%></p>
             </div>
-            <div class="btn-play">&#9655;</div>
+            <% if(trailer !== undefined && trailer.length !== 0){%>
+              <div class="btn-play"> <a class="video-link" href="https://www.youtube.com/watch?v=<%=trailer[0].key%>">&#9655;</a></div>
+            <%}%>
+
           </div>
         </div>
         <!-- end poster-wrapper -->
@@ -18,30 +21,99 @@
             <p> <% film.genres.forEach(genre => { %> <%=genre.name%> / <%}) %></p>
             <div class="extra">
               <div class="ratings"><p>&#9733;  <%=film.vote_average%></p></div>
-              <p class="channels"><%=film.popularity%></p>
+              <p class="channels"><i class="far fa-eye"></i> <%=film.popularity%></p>
+              <p style="margin-left: 50px;"><%=film.runtime%>min</p>
             </div>
+          
           </div>
-          <div class="cast-section">
-            <h3>THE CAST</h3>
-            <div class="casts">
-              <img src="https://m.media-amazon.com/images/M/MV5BNDg4OTczODE5Nl5BMl5BanBnXkFtZTcwMjgwMjA0Mg@@._V1_UY44_CR3,0,32,44_AL_.jpg" alt="avatar" />
-              <img src="https://m.media-amazon.com/images/M/MV5BNzYwMTQ1ODY1MV5BMl5BanBnXkFtZTgwMTU5NDc5OTE@._V1_UY44_CR17,0,32,44_AL_.jpg" alt="avatar" />
-              <img src="https://m.media-amazon.com/images/M/MV5BMTEyMDA1MzE0NjdeQTJeQWpwZ15BbWU3MDM0NzA4MDQ@._V1_UY44_CR1,0,32,44_AL_.jpg" alt="avatar" />
-            </div>
-          </div>
+
           <div class="synopsis-section">
             <h3>SYNOPSIS</h3>
             <p><%=film.overview%></p>
           </div>
+          <% if(crew !== undefined && crew.length !== 0) {%>
+            <div>
+              <% let director = crew.find((crew) => crew.job == 'Director')%>
+              <% if(director){ %>
+                <h4 style="margin: 10px 0px; font-weight: 200;"><strong>Director:</strong> <%=director.name%></h4>
+              <%}%>    
+              <% let screenWriter = crew.find((crew) => crew.job == 'Screenplay')%>
+              <% let writer = crew.find((crew) => crew.job == 'Writer')%>
+              <% if(writer){ %>
+                <h4 style="font-weight: 200;"><strong>Writer:</strong> <%=writer.name%></h4>
+             <% } if(screenWriter){ %>
+              <h4 style="font-weight: 200;"><strong>Screenplay:</strong> <%=screenWriter.name%></h4>
+             <%} %>
+              
+            </div>
+          <%}%>
+     
           <div class="gallery-section">
-            <!-- <h3>VIDEO / PICTURE</h3>
+            <h3>PICTURES</h3>
             <div class="gallery">
-              <div class="small"><img src="https://m.media-amazon.com/images/M/MV5BYzkyNGViZDItYzFkMy00OGM0LTg3NzktZGVkZjM2Mzk1OGEzXkEyXkFqcGdeQXVyNjUwNzk3NDc@._V1_.jpg" alt="media" /></div>
-              <div class="medium"><img src="https://m.media-amazon.com/images/M/MV5BNTkxOGIwYzUtNzc0ZS00MTBkLWFkODItYzEzNGRkN2E3MTAxXkEyXkFqcGdeQXVyNjUwNzk3NDc@._V1_.jpg" alt="media" /></div>
-              <div class="small"><img src="https://m.media-amazon.com/images/M/MV5BMzg2OTY3MjE3OF5BMl5BanBnXkFtZTgwNTkxMDU0MDI@._V1_SX1777_CR0,0,1777,745_AL_.jpg" alt="media" /></div>
-            </div> -->
+              <% for (let i =0; i <=images.length-1;  i++ ) { %>
+                <% if(i<=8){ %>
+                  <div><img class="image-link gallery-item" src="https://image.tmdb.org/t/p/w500/<%=images[i].file_path%>" href="https://image.tmdb.org/t/p/w500/<%=images[i].file_path%>" alt="media" /></div>
+                <%}%>
+       
+                <% } %>
+            </div>
           </div>
         </div>
+    </div>
+
+    <div class="cast-section">
+      <h1>Cast</h1>
+      <div class="casts slider">
+        <% if(cast !== undefined && cast.length !== 0) {
+          cast.forEach(actor => {
+            if(actor.profile_path){ %>
+            <div class="actor">
+             
+              <img class="image-link gallery-item" src="https://image.tmdb.org/t/p/w500/<%=actor.profile_path%>" href="https://image.tmdb.org/t/p/w500/<%=actor.profile_path%>" alt="">
+              <div class="bg"></div>
+              <div style="margin-top: 10px;">
+                 <h3><%=actor.name%> as</h3>
+                 <h4><%=actor.character%></h4>
+              </div>
+            </div>
+          <%}})}%>
+       
       </div>
+    </div>
+    
+    <div class="cast-section">
+      <h1>Recommended</h1>
+      <div class="casts slider">
+        <% if(recommendedFilms !== undefined && recommendedFilms.length !== 0) {
+          recommendedFilms.forEach(film => {
+            if(film.poster_path){ %>
+            <div class="actor">
+              <a href="/title/<%=film.id%>"><img src="https://image.tmdb.org/t/p/w500/<%=film.poster_path%>"></a>
+
+              <div style="margin-top: 10px;">
+                 <h3><%=film.title%></h3>
+                 <div class="mov_specs" style="position:relative">
+                  <i class="material-icons">star</i>
+                  <p style="margin-right: 10px;"><%=film.vote_average %></p> | 
+                  <p style="margin-left: 10px;"><%=film.release_date.substring(0,4)%></p>
+              </div>
+              </div>
+            </div>
+          <%}})}%>
+       
+      </div>
+    </div>
+
+    <div class="reviews-section">
+      <h1>Reviews</h1>
+      <% if(reviews !== undefined && reviews.length !== 0) {
+        reviews.forEach(review => { %>
+      <div class="review">
+              <h3>Author: <strong><%=review.author%></strong> </h3>
+            <p><%=review.content%></p>
+      </div>
+      <%})}%>
+    </div>
 
 <%- include("partials/footer") %>

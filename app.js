@@ -75,8 +75,55 @@ app.get('/title/:id', (req, res) => {
 		.get(`https://api.themoviedb.org/3/movie/${movie_id}?api_key=${process.env.apikey}&language=en-US`)
 		.then((response) => {
 			let film = response.data;
-			console.log(film);
-			res.render('show', { film: film });
+			axios
+				.get(`https://api.themoviedb.org/3/movie/${movie_id}/images?api_key=${process.env.apikey}`)
+				.then((response) => {
+					let images = response.data.backdrops;
+					axios
+						.get(`https://api.themoviedb.org/3/movie/${movie_id}/videos?api_key=${process.env.apikey}`)
+						.then((response) => {
+							let trailer = response.data.results;
+							axios
+								.get(
+									`https://api.themoviedb.org/3/movie/${movie_id}/credits?api_key=${process.env
+										.apikey}`
+								)
+								.then((response) => {
+									let cast = response.data.cast;
+									let crew = response.data.crew;
+
+									axios
+										.get(
+											`https://api.themoviedb.org/3/movie/${movie_id}/recommendations?api_key=${process
+												.env.apikey}`
+										)
+										.then((response) => {
+											let recommendedFilms = response.data.results;
+											axios
+												.get(
+													`https://api.themoviedb.org/3/movie/${movie_id}/reviews?api_key=${process
+														.env.apikey}`
+												)
+												.then((response) => {
+													let reviews = response.data.results;
+													res.render('show', {
+														film: film,
+														images: images,
+														trailer: trailer,
+														cast: cast,
+														crew: crew,
+														recommendedFilms: recommendedFilms,
+														reviews: reviews
+													});
+												})
+												.catch((err) => console.log(err));
+										})
+										.catch((err) => console.log(err));
+								})
+								.catch((err) => console.log(err));
+						});
+				})
+				.catch((err) => console.log(err));
 		})
 		.catch((err) => console.log(err));
 });
