@@ -71,59 +71,60 @@ app.post('/search', (req, res) => {
 
 app.get('/title/:id', (req, res) => {
 	let movie_id = req.params.id;
+	const film_requests = [ 'images', 'videos', 'credits', 'recommendations', 'reviews' ];
+	let film, images, trailer, cast, crew, recommendedFilms, reviews;
 	axios
 		.get(`https://api.themoviedb.org/3/movie/${movie_id}?api_key=${process.env.apikey}&language=en-US`)
 		.then((response) => {
-			let film = response.data;
-			axios
-				.get(`https://api.themoviedb.org/3/movie/${movie_id}/images?api_key=${process.env.apikey}`)
-				.then((response) => {
-					let images = response.data.backdrops;
-					axios
-						.get(`https://api.themoviedb.org/3/movie/${movie_id}/videos?api_key=${process.env.apikey}`)
-						.then((response) => {
-							let trailer = response.data.results;
-							axios
-								.get(
-									`https://api.themoviedb.org/3/movie/${movie_id}/credits?api_key=${process.env
-										.apikey}`
-								)
-								.then((response) => {
-									let cast = response.data.cast;
-									let crew = response.data.crew;
-
-									axios
-										.get(
-											`https://api.themoviedb.org/3/movie/${movie_id}/recommendations?api_key=${process
-												.env.apikey}`
-										)
-										.then((response) => {
-											let recommendedFilms = response.data.results;
-											axios
-												.get(
-													`https://api.themoviedb.org/3/movie/${movie_id}/reviews?api_key=${process
-														.env.apikey}`
-												)
-												.then((response) => {
-													let reviews = response.data.results;
-													res.render('show', {
-														film: film,
-														images: images,
-														trailer: trailer,
-														cast: cast,
-														crew: crew,
-														recommendedFilms: recommendedFilms,
-														reviews: reviews
-													});
-												})
-												.catch((err) => console.log(err));
-										})
-										.catch((err) => console.log(err));
-								})
-								.catch((err) => console.log(err));
-						});
-				})
-				.catch((err) => console.log(err));
+			film = response.data;
+			let i = 0;
+			for (i = 0; i < film_requests.length; i++) {
+				let film_req = film_requests[i];
+				axios
+					.get(`https://api.themoviedb.org/3/movie/${movie_id}/${film_req}?api_key=${process.env.apikey}`)
+					.then((response) => {
+						switch (film_req) {
+							case 'images':
+								images = response.data.backdrops;
+								break;
+							case 'videos':
+								trailer = response.data.results;
+								break;
+							case 'credits':
+								cast = response.data.cast;
+								crew = response.data.crew;
+								break;
+							case 'recommendations':
+								recommendedFilms = response.data.results;
+								break;
+							case 'reviews':
+								reviews = response.data.results;
+								break;
+						}
+					})
+					.catch((err) => console.log(err))
+					.then(() => {
+						if (
+							images !== undefined &&
+							trailer !== undefined &&
+							cast !== undefined &&
+							crew !== undefined &&
+							recommendedFilms !== undefined &&
+							reviews !== undefined
+						) {
+							res.render('show', {
+								film: film,
+								images: images,
+								trailer: trailer,
+								cast: cast,
+								crew: crew,
+								recommendedFilms: recommendedFilms,
+								reviews: reviews
+							});
+						}
+					})
+					.catch((err) => console.log(err));
+			}
 		})
 		.catch((err) => console.log(err));
 });
