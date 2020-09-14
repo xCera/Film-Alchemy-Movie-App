@@ -1,6 +1,7 @@
 <%- include("partials/header") %>
         
-<div class="movie-card" style="background-image: url('https://image.tmdb.org/t/p/w500/<%=film.backdrop_path%>');" data-movie="Blade Runner">
+
+<div class="movie-card" style="background-image: url('https://image.tmdb.org/t/p/w500/<%=film.backdrop_path%>');">
     <div class="movie-card__overlay"></div>
     <div class="movie-card__content">
       <div class="movie-card__header">
@@ -12,6 +13,103 @@
     </div>
   </div>
 
+   
 
+
+
+
+  <div class="cast-section" style="margin-top: 100px !important; width: 70%;">
+    <h1 style="text-align: left; margin-bottom: 50px !important;">Popular</h1>
+    <div class="casts slider">
+      <% if(popular_films !== undefined && popular_films.length !== 0) {
+        popular_films.forEach(film => {
+          if(film.poster_path){ %>
+          <div class="actor">
+            <a href="/title/<%=film.id%>"><img src="https://image.tmdb.org/t/p/w500/<%=film.poster_path%>"></a>
+
+            <div style="margin-top: 10px;">
+               <h3><%=film.title%></h3>
+               <div class="mov_specs" style="position:relative">
+                <i class="material-icons">star</i>
+                <p style="margin-right: 10px;"><%=film.vote_average %></p> | 
+                <p style="margin-left: 10px;"><%=film.release_date.substring(0,4)%></p>
+            </div>
+            </div>
+          </div>
+        <%}})}%>
+     
+    </div>
+  </div>
+
+
+  <div class="cast-section" style="margin-top: 100px !important; width: 70%;">
+    <h1 style="text-align: left; margin-bottom: 50px !important;">Upcoming</h1>
+    <div class="casts slider">
+      <% if(upcoming_films !== undefined && upcoming_films.length !== 0) {
+        upcoming_films.forEach(film => {
+          if(film.poster_path){ %>
+          <div class="actor">
+            <a href="/title/<%=film.id%>"><img src="https://image.tmdb.org/t/p/w500/<%=film.poster_path%>"></a>
+
+            <div style="margin-top: 10px;">
+               <h3><%=film.title%></h3>
+               <div class="mov_specs" style="position:relative">
+                <p ><%=film.release_date%></p>
+            </div>
+            </div>
+          </div>
+        <%}})}%>
+     
+    </div>
+  </div>
+
+  
+  <div class="cast-section" style="margin-top: 100px !important; width: 70%;">
+    <h1 style="text-align: left; margin-bottom: 50px !important;">Top Rated</h1>
+    <div class="casts slider">
+      <% if(top_rated !== undefined && top_rated.length !== 0) {
+        top_rated.forEach(film => {
+          if(film.poster_path){ %>
+          <div class="actor">
+            <a href="/title/<%=film.id%>"><img src="https://image.tmdb.org/t/p/w500/<%=film.poster_path%>"></a>
+
+            <div style="margin-top: 10px;">
+               <h3><%=film.title%></h3>
+               <div class="mov_specs" style="position:relative">
+                <i class="material-icons">star</i>
+                <p style="margin-right: 10px;"><%=film.vote_average %></p> | 
+                <p style="margin-left: 10px;"><%=film.release_date.substring(0,4)%></p>
+            </div>
+            </div>
+          </div>
+        <%}})}%>
+     
+    </div>
+  </div>
+
+
+
+  <div class="cast-section" style="margin-top: 100px !important; width: 70%;">
+    <h1 style="text-align: left; margin-bottom: 50px !important;">Now Playing</h1>
+    <div class="casts slider">
+      <% if(now_playing_films !== undefined && now_playing_films.length !== 0) {
+        now_playing_films.forEach(film => {
+          if(film.poster_path){ %>
+          <div class="actor">
+            <a href="/title/<%=film.id%>"><img src="https://image.tmdb.org/t/p/w500/<%=film.poster_path%>"></a>
+
+            <div style="margin-top: 10px;">
+               <h3><%=film.title%></h3>
+               <div class="mov_specs" style="position:relative">
+                <i class="material-icons">star</i>
+                <p style="margin-right: 10px;"><%=film.vote_average %></p> | 
+                <p style="margin-left: 10px;"><%=film.release_date.substring(0,4)%></p>
+            </div>
+            </div>
+          </div>
+        <%}})}%>
+     
+    </div>
+  </div>
 
 <%- include("partials/footer") %>

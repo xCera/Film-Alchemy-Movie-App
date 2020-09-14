@@ -1,4 +1,5 @@
 $(document).ready(function() {
+	$('#preloader').fadeOut(500);
 	$('.image-link').magnificPopup({ type: 'image' });
 	$('.gallery-item').magnificPopup({
 		type: 'image',

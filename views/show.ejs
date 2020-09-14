@@ -21,7 +21,7 @@
             <p> <% film.genres.forEach(genre => { %> <%=genre.name%> / <%}) %></p>
             <div class="extra">
               <div class="ratings"><p>&#9733;  <%=film.vote_average%></p></div>
-              <p class="channels"><i class="far fa-eye"></i> <%=film.popularity%></p>
+              <p class="channels"><i class="far fa-eye"></i> <%=Math.round(film.popularity)%></p>
               <p style="margin-left: 50px;"><%=film.runtime%>min</p>
             </div>
           

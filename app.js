@@ -28,21 +28,56 @@ axios
 // HOMEPAGE
 
 app.get('/', (req, res) => {
-	axios
-		.get(`https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.apikey}&language=en-US&page=1`)
-		.then((response) => {
-			let now_playing_films = response.data.results;
-			let randomFilm = now_playing_films[randomNum(now_playing_films.length)];
-			let filmGenres = [];
-			randomFilm.genre_ids.forEach((zanr) => {
-				filmGenres.push(genres.find((genre) => genre.id == zanr));
-			});
-			res.render('home', { film: randomFilm, genres: filmGenres });
-		})
-		.catch((err) => {
-			console.log(err);
-			res.redirect('/');
-		});
+	let movie_id = req.params.id;
+	const film_requests = [ 'now_playing', 'popular', 'upcoming', 'top_rated' ];
+	let randomFilm, filmGenres, now_playing_films, popular_films, upcoming_films, top_rated;
+	film_requests.forEach((film_req) => {
+		axios
+			.get(`https://api.themoviedb.org/3/movie/${film_req}?api_key=${process.env.apikey}&language=en-US`)
+			.then((response) => {
+				switch (film_req) {
+					case 'now_playing':
+						now_playing_films = response.data.results;
+						let now_films = response.data.results;
+						randomFilm = now_films[randomNum(now_films.length)];
+						filmGenres = [];
+						randomFilm.genre_ids.forEach((zanr) => {
+							filmGenres.push(genres.find((genre) => genre.id == zanr));
+						});
+						break;
+					case 'popular':
+						popular_films = response.data.results;
+						break;
+					case 'upcoming':
+						upcoming_films = response.data.results;
+						break;
+					case 'top_rated':
+						top_rated = response.data.results;
+						break;
+				}
+			})
+			.catch((err) => console.log(err))
+			.then(() => {
+				if (
+					randomFilm !== undefined &&
+					filmGenres !== undefined &&
+					now_playing_films !== undefined &&
+					popular_films !== undefined &&
+					upcoming_films !== undefined &&
+					top_rated !== undefined
+				) {
+					res.render('home', {
+						film: randomFilm,
+						genres: filmGenres,
+						now_playing_films: now_playing_films,
+						popular_films: popular_films,
+						upcoming_films: upcoming_films,
+						top_rated: top_rated
+					});
+				}
+			})
+			.catch((err) => console.log(err));
+	});
 });
 
 // SEARCH
